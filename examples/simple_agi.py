@@ -30,7 +30,9 @@ def main():
     extension = agi.get_agi_var("extension")
 
     # Log call information
-    agi.verbose(f"Call from {caller_id} on channel {channel} to extension {extension}", 1)
+    agi.verbose(
+        f"Call from {caller_id} on channel {channel} to extension {extension}", 1
+    )
 
     # Play welcome message
     agi.stream_file("welcome")

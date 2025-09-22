@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 
-import unittest
-import sys
 import io
-from unittest.mock import patch, MagicMock
+import sys
+import unittest
+from unittest.mock import MagicMock
+
 from basicagi import BasicAGI
 
 
@@ -132,7 +133,6 @@ class TestBasicAGI(unittest.TestCase):
         agi = BasicAGI()
 
         # Mock stdin for command responses
-        test_response = "200 result=1 (timeout)\n"
         agi._send_command = MagicMock()
 
         # Test parse_mode=1 (result and value parsing)
@@ -194,7 +194,7 @@ class TestBasicAGI(unittest.TestCase):
 
         # Test database_get
         agi._send_command.return_value = ("1", "stored_value")
-        result = agi.database_get("family", "key")
+        agi.database_get("family", "key")
         agi._send_command.assert_called_with("DATABASE GET family key", 1)
 
         # Test database_del

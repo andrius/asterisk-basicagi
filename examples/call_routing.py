@@ -14,8 +14,9 @@ Usage in Asterisk dialplan:
     same => n,Hangup()
 """
 
-from basicagi import BasicAGI
 import time
+
+from basicagi import BasicAGI
 
 
 def get_business_hours():
@@ -53,7 +54,9 @@ def main():
         # Parse route info (format: "extension:department:priority")
         try:
             extension, department, priority = route_info.split(":")
-            agi.verbose(f"Found routing: {extension} in {department} (priority {priority})", 1)
+            agi.verbose(
+                f"Found routing: {extension} in {department} (priority {priority})", 1
+            )
         except ValueError:
             # Fallback if format is incorrect
             extension = route_info
@@ -129,7 +132,11 @@ def main():
     agi.verbose(f"Routing call to extension {extension}", 1)
 
     # Set caller ID name with department info
-    agi.exec("Set", f"CALLERID(name)={department.upper()}: {agi.get_agi_var('calleridname') or caller_id}")
+    caller_name = agi.get_agi_var("calleridname") or caller_id
+    agi.exec(
+        "Set",
+        f"CALLERID(name)={department.upper()}: {caller_name}",
+    )
 
     # Dial with appropriate options
     dial_options = "t"  # Allow transfer
@@ -140,7 +147,7 @@ def main():
     agi.database_put("call_logs", f"{int(time.time())}", f"{caller_id}->{extension}")
 
     # Execute the dial
-    dial_result = agi.exec("Dial", f"PJSIP/{extension}@internal,30,{dial_options}")
+    agi.exec("Dial", f"PJSIP/{extension}@internal,30,{dial_options}")
 
     # Check dial status
     dial_status = agi.get_variable("DIALSTATUS")

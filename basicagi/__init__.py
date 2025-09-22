@@ -16,7 +16,7 @@ Basic usage:
 
 from .basic_agi import BasicAGI
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 __author__ = "Andrius Kairiukstis"
 __email__ = "k@andrius.mobi"
 __description__ = "A Python library for Asterisk Gateway Interface (AGI) applications"
