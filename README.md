@@ -298,6 +298,56 @@ Place your scripts in the Asterisk AGI directory (typically `/var/lib/asterisk/a
 - `receive_char(timeout=0)` - Receive character from channel
 - `receive_text(timeout=0)` - Receive text from channel
 
+## Development
+
+### Setup Development Environment
+
+```bash
+# Create virtual environment
+uv venv .venv
+
+# Install package in development mode with dependencies
+source .venv/bin/activate && uv pip install -e .
+
+# Install test and development dependencies
+source .venv/bin/activate && uv pip install pytest pytest-cov ruff
+```
+
+### Code Quality and Pre-commit Checks
+
+Before submitting any changes, ensure your code passes all quality checks:
+
+```bash
+# Sort imports with ruff
+source .venv/bin/activate && ruff check --select I --fix basicagi tests examples
+
+# Format code with ruff
+source .venv/bin/activate && ruff format basicagi tests examples
+
+# Run linter with ruff
+source .venv/bin/activate && ruff check basicagi tests examples
+
+# Fix linting issues automatically
+source .venv/bin/activate && ruff check --fix basicagi tests examples
+
+# Run tests
+source .venv/bin/activate && python -m pytest tests/
+
+# Run tests with coverage
+source .venv/bin/activate && python -m pytest tests/ --cov=basicagi --cov-report=html
+```
+
+### Pre-commit Workflow
+
+It's recommended to run these commands before committing:
+
+1. **Sort imports**: `ruff check --select I --fix basicagi tests examples`
+2. **Format code**: `ruff format basicagi tests examples`
+3. **Check linting**: `ruff check basicagi tests examples`
+4. **Run tests**: `python -m pytest tests/`
+
+This ensures consistent code style and catches issues early.
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.

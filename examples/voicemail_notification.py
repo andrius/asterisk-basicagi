@@ -14,8 +14,9 @@ Usage in Asterisk dialplan:
     same => n,Hangup()
 """
 
-from basicagi import BasicAGI
 import time
+
+from basicagi import BasicAGI
 
 
 def main():
